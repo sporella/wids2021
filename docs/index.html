@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Visualización de datos espaciales con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie Orellana" />
+    <meta name="date" content="2021-06-05" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Visualización de datos espaciales con R
+### Stephanie Orellana
+### WIDS Santiago 2021
+### 2021-06-05
+
+---
+
+
+
+
+
+
+class: middle
+background-image: url("img/cohete.png")
+background-size: 400px 400px
+background-position: center right
+
+# ¿De qué hablaremos hoy?
+
+--
+
+- Diferentes tipos de datos espaciales
+
+--
+- Paquetes para trabajar con datos espaciales en R
+
+--
+- Gramática de los gráficos
+
+--
+- Ejemplo práctico con `{ggplot2}`
+
+--
+- Ejemplo práctico con `{mapview}`
+
+---
+class: inverse
+# Diferentes tipos de datos espaciales
+
+.pull-left[
+.h2[VECTORES]
+.p-caption[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/vector.png" alt="Fuente: &amp;lt;a href='http://katiejolly.io/rnorth-19'&amp;gt; @Katie Jolly &amp;lt;/a&amp;gt;" width="55%" /&gt;
+&lt;p class="caption"&gt;Fuente: &lt;a href='http://katiejolly.io/rnorth-19'&gt; @Katie Jolly &lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+]
+
+.pull-right[
+&lt;img src="img/vectorcat.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+- Mediciones de campo
+- Estaciones meteorológicas
+- Caminos
+- Rutas GPS
+- Comunas
+- Regiones
+- Áreas de estudio
+
+.purple_h1[FORMATOS MÁS UTILIZADOS:
+
+ESRI Shapefile (.shp), GeoJSON(.geojson), Keyhole Markup Language (.KML), ...] 
+]
+
+
+---
+class: inverse
+
+# Diferentes tipos de datos espaciales
+
+.pull-left[
+.h2[RÁSTER]
+.p-caption[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="img/raster.png" alt="Fuente: &amp;lt;a href='http://katiejolly.io/rnorth-19'&amp;gt; @Katie Jolly &amp;lt;/a&amp;gt;" width="62%" /&gt;
+&lt;p class="caption"&gt;Fuente: &lt;a href='http://katiejolly.io/rnorth-19'&gt; @Katie Jolly &lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+]
+]
+
+.pull-right[
+&lt;img src="img/pixelcat.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+- Imágenes satelitales
+- Modelos climáticos
+- Interpolaciones espaciales
+- Imágenes aéreas
+- Modelos de elevación digital
+- Usos de suelo
+- Datos (numéricos o categóricos) en grillas regulares
+
+
+.purple_h1[FORMATOS MÁS UTILIZADOS:
+
+GeoTiff(.tif), netCDF(.nc), ESRI Asci (.asc), ...] 
+]
+
+---
+class: inverse
+background-image: url("https://user-images.githubusercontent.com/520851/50280460-e35c1880-044c-11e9-9ed7-cc46754e49db.jpg")
+background-position: bottom left
+background-size: 600px 550px
+
+# Vectores: paquete `{sf}`
+
+.col-left[
+
+]
+
+--
+- Es el paquete "más moderno" para trabajar con vectores.
+
+--
+- Actúa bajo la lógica de **simple features** en donde un objeto espacial se divide en dos componentes:
+
+1.- data.frame (tabla de atributos)
+
+2.- geometría **geometry** (información espacial adherida)
+
+--
+- Es compatible con **tidyverse**
+
+---
+class: inverse
+background-image: url("img/cube1.png")
+background-position: bottom left
+background-size: 550px 450px
+# Paquetes para trabajar con rásters
+
+.col-left[
+
+]
+
+--
+
+`{raster}`: más utilizado, más antiguo, más tutoriales
+
+--
+
+`{stars}`: hermano de sf, funciona con una lógica similar, es compatible con ggplot
+
+--
+
+`{terra}`: sucesor de ráster, más moderno, menos tutoriales.
+
+--
+
+ Otros: dependiendo de formatos más específicos
+
+`{ncdf4}`
+
+`{rhdf5}`
+
+---
+class: inverse
+# Gramática de los gráficos
+
+&lt;img src="img/ggplot.png" width="85%" height="70%" style="display: block; margin: auto;" /&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
