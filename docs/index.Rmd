@@ -209,7 +209,7 @@ background-size: 600px 550px
 class: inverse
 background-image: url("img/cube1.png")
 background-position: bottom left
-background-size: 550px 450px
+background-size: 650px 550px
 # Paquetes para trabajar con rásters
 
 .col-left[
@@ -244,3 +244,55 @@ class: inverse
 knitr::include_graphics("img/ggplot.png")
 ```
 
+---
+class: middle
+background-image: url("img/map.png")
+background-size: 400px 400px
+background-position: center right
+
+# Más paquetes para visualizar datos espaciales
+
+--
+- [{tmap}](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html)
+
+--
+- [{mapview}](https://r-spatial.github.io/mapview/)
+
+--
+- [{rayshader}](https://www.rayshader.com/)
+
+--
+- [{leaflet}](https://rstudio.github.io/leaflet/)
+
+--
+- [{mapdeck}](https://github.com/SymbolixAU/mapdeck)
+
+--
+- [{cartogram}](https://github.com/sjewo/cartogram)
+
+--
+- ...
+
+---
+class: inverse
+background-image: url("img/libros.png")
+background-size: 700px 400px
+background-position: center right
+# Libros recomendados
+
+--
+- [Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
+
+--
+- [Geocomputation with R](https://geocompr.robinlovelace.net/)
+
+--
+- [R para Ciencia de Datos](https://es.r4ds.hadley.nz/)
+
+---
+class: middle
+background-image: url("img/r.png")
+background-size: 400px 400px
+background-position: center right
+
+# ¡Vamos a R!
